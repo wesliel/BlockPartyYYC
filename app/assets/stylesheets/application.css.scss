@@ -31,7 +31,7 @@ html, body {
 
 footer {
 	position: absolute;
-	background: #333;
+	background: #3d1a00;
 	min-height: 5rem;
 	width: 100%;	
 	bottom: 0;
@@ -39,4 +39,8 @@ footer {
 	a.twitter-hashtag-button {
 		display: none;
 	}
+}
+
+#map img {
+	max-width: none;
 }

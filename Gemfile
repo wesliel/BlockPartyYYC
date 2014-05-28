@@ -41,3 +41,10 @@ gem 'capistrano-rails', group: :development
 # Use debugger
 gem 'debugger', group: [:development, :test]
 
+gem 'json'
+gem 'omniauth-twitter'
+
+group :development do
+	gem "binding_of_caller"
+	gem "better_errors"
+end

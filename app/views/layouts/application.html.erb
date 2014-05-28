@@ -23,12 +23,21 @@
           </ul>
           <section class="top-bar-section">
             <ul class="right">
-              <li>
-                <a href="#" id="twitter-sign-in">Sign In</a>
-              </li>
-              <li>
-                <a href="#" id="twitter-register">Register</a>
-              </li>
+              <% if (!session[:user_id]) %>
+                <li class="has-dropdown">
+                  <a href="#">Sign In</a>
+                  <ul class="dropdown">
+                    <li><%= link_to "Twitter", signin_path(:twitter) %>
+                  </ul>
+                </li>
+              <% else %>
+                <li>
+                  <a href="http://twitter.com/<%= current_user.name %>" target="_blank"><%= current_user.name %></a>
+                </li>
+                <li>
+                  <%= link_to "Sign Out", controller: "sessions", action: "destroy" %>
+                </li>
+              <% end %>
             </ul>
           </section>
         </nav>

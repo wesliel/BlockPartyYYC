@@ -4,7 +4,7 @@ class EventController < ApplicationController
 
 	# Displays all the events
 	def index
-		@events = Event.all
+		@events_json = Event.where("lat IS NOT NULL AND long IS NOT NULL").to_json
 	end
 
 	def show
@@ -25,13 +25,27 @@ class EventController < ApplicationController
 	end
 
 	def update
+		@event = Event.find(params[:id])
+
+		if @event.update(event_params)
+			redirect_to @event
+		else
+			render 'edit'
+		end
 	end
 
 	def destroy
+		@event = Event.find(params[:id])
+
+		if @event.update(:deleted => 1)
+			redirect_to event_index_url, :notice => 'Event deleted'
+		else
+			redirect_to event_index_url, :notice => 'Error deleting event'
+		end
 	end
 
 	private
 		def event_params
-			params.require(:event).permit(:title, :community, :address, :organizer, :date, :start_time, :end_time)
+			params.require(:event).permit(:title, :community, :address, :organizer, :date, :start_time, :end_time, :lat, :long, :type)
 		end
 end
