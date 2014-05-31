@@ -107,9 +107,15 @@ strong {
 	}
 }
 
-#logo svg {
-	width: 100px;
-	height: 70px;
+.logo {
+	position: relative;
+
+	svg {
+		position: absolute:
+		left: 20px;
+		width: 100px;
+		height: 70px;
+	}
 }
 
 .twitter-container {
