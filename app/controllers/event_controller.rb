@@ -2,13 +2,19 @@
 class EventController < ApplicationController
 	# p@rtyp!nYYC2014
 
+	before_action :require_login, only: [:mine, :new, :create, :edit, :update, :destory]
+
 	# Displays all the events
 	def index
-		@events_json = Event.where("lat IS NOT NULL AND long IS NOT NULL").to_json
+		@events_json = Event.where("lat IS NOT NULL AND long IS NOT NULL AND deleted = 0").to_json(:include => :user)
+	end
+
+	def mine
+		@events = Event.where(:user_id => session[:user_id].to_s, :deleted => 0.to_s)
 	end
 
 	def show
-		@event = Event.find(params[:id])
+		@event = Event.find_by(id: params[:id], deleted: 0.to_s)
 	end
 
 	def new
@@ -16,8 +22,13 @@ class EventController < ApplicationController
 
 	def create
 		@event = Event.new(event_params)
-		@event.save
-		redirect_to @event
+
+		if session[:user_id].to_s == event_params[:user_id].to_s
+			@event.save
+			redirect_to @event
+		else
+			redirect_to new_event_url, :alert => "Error creating event" + session[:user_id].to_s + ":" + event_params[:user_id]
+		end
 	end
 
 	def edit
@@ -40,12 +51,18 @@ class EventController < ApplicationController
 		if @event.update(:deleted => 1)
 			redirect_to event_index_url, :notice => 'Event deleted'
 		else
-			redirect_to event_index_url, :notice => 'Error deleting event'
+			redirect_to event_index_url, :alert => 'Error deleting event'
 		end
 	end
 
 	private
-		def event_params
-			params.require(:event).permit(:title, :community, :address, :organizer, :date, :start_time, :end_time, :lat, :long, :type)
+	def event_params
+		params.require(:event).permit(:title, :community, :address, :user_id, :date, :start_time, :end_time, :lat, :long, :event_type)
+	end
+
+	def require_login
+		if session[:user_id] == nil
+			redirect_to root_url, :alert => "You must be logged in first"
 		end
+	end
 end

@@ -1,31 +1,39 @@
+<% title "Party details" %>
+<div class="has-flags"></div>
 <div class="row">
 	<div class="columns small-12">
-	<h1>Event Details</h1>
-	<h2><%= @event.title %></h2>
-	<p>
-	<%= @event.community %>
-	</p>
-	<p>
-	Organized by: <%= @event.organizer %>
-	</p>
-	<p>
-	Date: <%= @event.date %>
-	</p>
-	<p>
-	Start Time: <%= @event.start_time %>
-	</p>
-	<p>
-	End Time: <%= @event.end_time %>
-	</p>
-	<p>
-	Address: <%= @event.address %>
-	</p>
-	<p>
-	Lat: <%= @event.lat %>
-	</p>
-	<p>
-	Long: <%= @event.long %>
-	</p>
+		<h1><%= yield(:title) %></h1>
+	<% if @event %>
 
+		<h2><%= @event.title %></h2>
+		<h3><%= @event.community %></h3>
+		<p>
+		<%= link_to "@#{@event.user.name}", "https://twitter.com/#{@event.user.name}", target: "_blank" %>
+		</p>
+		<p>
+		Date: <%= @event.date %>
+		</p>
+		<p>
+		Start Time: <%= @event.start_time %>
+		</p>
+		<p>
+		End Time: <%= @event.end_time %>
+		</p>
+		<p>
+		Address: <%= @event.address %>
+		</p>
+		<p>
+		Lat: <%= @event.lat %>
+		</p>
+		<p>
+		Long: <%= @event.long %>
+		</p>
+
+	<% else %>
+		<h2>Oops, this party cannot be located</h2>
+		<p>
+			Perhaps it hasn't been submitted, why don't you <%= link_to "do that now?", controller: "event", action: "new" %>
+		</p>
+	<% end %>
 	</div>
 </div>

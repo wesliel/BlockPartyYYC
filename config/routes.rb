@@ -6,7 +6,12 @@ Rails.application.routes.draw do
   root to: 'event#index'
 
   # Resources
-  resources :event
+  resources :event do
+    collection do
+      get :mine
+    end
+  end
+
 
   # Authentication
   get "/auth/:provider/callback" => "sessions#create"

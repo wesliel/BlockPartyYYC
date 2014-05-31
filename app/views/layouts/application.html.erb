@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? "Party Pin - " + yield(:title) : "Party Pin" %></title>
+    <title><%= content_for?(:title) ? "YYCYouThere - " + yield(:title) : "YYCYouThere" %></title>
 
     <%= stylesheet_link_tag    "application" %>
+    <%= stylesheet_link_tag    "//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
   </head>
@@ -17,9 +18,9 @@
         <nav class="top-bar" data-topbar>
           <ul class="title-area">
             <li class="name">
-              <h1><a href="/">Party Pin</a></h1>
+              <h1><a href="/" id="logo" class="show-for-medium-up"><%= inline_svg("logo.svg") %></a><a href="/" id="logo" class="show-for-small-only"><%= inline_svg("logo_mobile.svg") %></a></h1>
             </li>
-            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+            <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
           </ul>
           <section class="top-bar-section">
             <ul class="right">
@@ -32,10 +33,14 @@
                 </li>
               <% else %>
                 <li>
-                  <a href="http://twitter.com/<%= current_user.name %>" target="_blank"><%= current_user.name %></a>
+                  <%= link_to "Submit a Party", controller: "event", action: "new" %>
                 </li>
-                <li>
-                  <%= link_to "Sign Out", controller: "sessions", action: "destroy" %>
+                <li class="has-dropdown">
+                  <a href="http://twitter.com/<%= current_user.name %>" target="_blank"><%= current_user.name %></a>
+                  <ul class="dropdown">
+                    <li><%= link_to "My Parties", controller: "event", action: "mine" %></li>
+                    <li><%= link_to "Sign Out", controller: "sessions", action: "destroy" %></li>
+                  </ul>
                 </li>
               <% end %>
             </ul>
@@ -43,21 +48,31 @@
         </nav>
       </div>
       <div class="container-to-grid" id="content-wrapper">
-        <% if (notice or alert) %>
-          <div class="row">
-            <div class="columns small-12">
-              <p class="notice"><%= notice %></p>
-              <p class="alert"><%= alert %></p>
-            </div>
+        <div class="row" id="message-container">
+          <div class="columns small-12">
+            <% if notice %>
+              <div data-alert class="alert-box success radius"><%= notice %><a href="#" class="close"><i class="fa fa-times"></i></a></div>
+            <% end %>
+            <% if alert %>
+              <div data-alert class="alert-box alert radius"><%= alert %><a href="#" class="close"><i class="fa fa-times"></i></a></div>
+            <% end %>
           </div>
-        <% end %>
+        </div>
         <%= yield %>
       </div>
       <footer class="container-to-grid">
+        <div class="row twitter-container">
+          <div class="columns small-12 medium-6 medium-text-center">
+            <div class="twitter"><%= inline_svg("twitter_blue.svg") %></div><div class="tweet-bubble red"><a href="https://twitter.com/intent/tweet?text=%23NeighbourDayYYC">Tweet #NeighbourDayYYC</a></div>
+          </div>
+          <div class="columns small-12 medium-6 medium-text-center">
+            <div class="twitter"><%= inline_svg("twitter_yellow.svg") %></div><div class="tweet-bubble blue"><a href="https://twitter.com/intent/follow?screen_name=partypinyyc">Follow @YYCYouThere</a></div>
+          </div>
+        </div>
         <div class="row">
-          <div class="columns small-6">
-          <a href="https://twitter.com/intent/tweet?button_hashtag=NeighbourDayYYC" class="twitter-hashtag-button" data-related="PartyPinYYC">Tweet #NeighbourDayYYC</a>
-          <a href="https://twitter.com/partypinyyc" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @PartyPinYYC</a>
+          <div class="columns small-12 text-center">
+            &copy;<%= current_year %> YYCYouThere
+          </div>
         </div>
       </footer>
     </div>

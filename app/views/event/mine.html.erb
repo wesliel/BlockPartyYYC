@@ -1,0 +1,17 @@
+<% title "My party list" %>
+<div class="has-flags"></div>
+<div class="row">
+	<div class="columns small-12">
+	<h1><%= yield(:title) %></h1>
+		<% if @event %>
+		<ul>
+		<% @events.each do |evt| %>
+			<li><%= evt.title %> <%= link_to raw("<i class=\"fa fa-pencil\"></i> Edit"), edit_event_path(evt) %> <%= link_to raw("<i class=\"fa fa-trash-o\"></i> Delete"), evt, method: :delete %></li>
+		<% end %>
+		</ul>
+		<% else %>
+		<h2>You have not submitted any parties yet...</h2>
+		<p>... would you like to <%= link_to "create one", controller: "event", action: "new" %> now?</p>
+		<% end %>
+	</div>
+</div>

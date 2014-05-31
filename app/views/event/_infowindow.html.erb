@@ -1,0 +1,20 @@
+<div class="template hidden" data-template="infowindow">
+	<div class="window-wrapper [event_type]">
+		<div class="icon bbq"><%= inline_svg("bbq_icon.svg") %></div>
+		<div class="icon potluck"><%= inline_svg("potluck_icon.svg") %></div>
+		<div class="icon picnic"><%= inline_svg("picnic_icon.svg") %></div>
+		<div class="icon catered"><%= inline_svg("catered_icon.svg") %></div>
+		<div class="info">
+			<h4>[title]</h4>
+			<strong>[event_type] by</strong><a href="http://twitter.com/[user_name]"> @[user_name]</a>
+			<p>
+				<strong>[address]</strong><br/>
+				<strong>[community]</strong>
+			</p>
+			<p>
+				<strong>[date]</strong><br/>
+				<strong>[start_time] - [end_time]</strong>
+			</p>
+		</div>
+	</div>
+</div>

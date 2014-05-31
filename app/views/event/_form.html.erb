@@ -1,35 +1,37 @@
 <%= form_for :event, html: { 'novalidate' => true }, url: event_index_path do |f| %>
   <%= f.hidden_field :lat, :required => true, :"data-silent" => "" %>
   <%= f.hidden_field :long, :required => true, :"data-silent" => "" %>
-  <p>
-    <%= f.label :title %>
-    <%= f.text_field :title, :required => true, :"data-required-message" => "Please enter a name of your party" %>
-  </p>
-  <p>
-  	<%= f.label :community %>
-  	<%= f.text_field :community %>
-  </p>
-  <p>
-  	<%= f.label :address %>
-  	<%= f.text_field :address, :required => true, :"data-required-message" => "Please enter an address" %>
-  </p>
-  <p>
-  	<%= f.label :organizer %>
-  	<%= f.text_field :organizer %>
-  </p>
-  <p>
-  	<%= f.label :date %>
-  	<%= f.text_field :date, :required => true, :"data-match" => "date", :"data-required-message" => "Please enter party date" %>
-  </p>
-  <p>
-  	<%= f.label :start_time %>
-  	<%= f.text_field :start_time, :required => true, :"data-match" => "time", :"data-required-message" => "Please enter a start time" %>
-  </p>
-  <p>
-  	<%= f.label :end_time %>
-  	<%= f.text_field :end_time, :required => true, :"data-match" => "time", :"data-required-message" => "Please enter a start time" %>
-  </p>
-  <p>
-  	<%= f.submit :class => "button" %>
-  </p>
+  <%= f.hidden_field :user_id, :required => true, :"data-silent" => "", :value => session[:user_id] %>
+  <div class="row">
+    <div class="columns small-3"><%= f.label :title %></div>
+    <div class="columns small-9"><%= f.text_field :title, :required => true, :"data-required-message" => "Please enter a name of your party", :placeholder => "e.g.: Joe's Great BBQ" %></div>
+  </div>
+  <div class="row">
+  	<div class="columns small-3"><%= f.label :community %></div>
+  	<div class="columns small-9"><%= f.text_field :community, :placeholder => "Mission" %></div>
+  </div>
+  <div class="row">
+  	<div class="columns small-3"><%= f.label :address %></div>
+  	<div class="columns small-9"><%= f.text_field :address, :required => true, :"data-required-message" => "Please enter an address", :placeholder => "e.g.: 123 4th St SW, T1U2V3" %></div>
+  </div>
+  <div class="row">
+    <div class="columns small-3"><%= f.label :event_type %></div>
+    <div class="columns small-9"><%= f.select :event_type, party_type_options, {}, {:required => true, :"data-required-message" => "Please select a party type"} %></div>
+  </div>
+
+  <div class="row">
+  	<div class="columns small-3"><%= f.label :date %></div>
+  	<div class="columns small-9"><%= f.text_field :date, :required => true, :"data-match" => "date", :"data-required-message" => "Please enter party date", :value => "06/21/2014" %></div>
+  </div>
+  <div class="row">
+  	<div class="columns small-3"><%= f.label :start_time %></div>
+  	<div class="columns small-9"><%= f.select :start_time, time_options, {}, {:required => true, :"data-match" => "time", :"data-required-message" => "Please enter a start time"} %></div>
+  </div>
+  <div class="row">
+  	<div class="columns small-3"><%= f.label :end_time %></div>
+    <div class="columns small-9"><%= f.select :end_time, time_options, {}, {:required => true, :"data-match" => "time", :"data-required-message" => "Please enter an end time"} %></div>
+  </div>
+  <div class="row">
+  	<div class="columns small-12 text-right"><%= f.submit "Save Party", :class => "button" %></div>
+  </div>
 <% end %>

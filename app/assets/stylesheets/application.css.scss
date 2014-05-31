@@ -13,34 +13,262 @@
  *= require_tree .
  *= require_self
  *= require foundation_and_overrides
+ *= require nexa-free-light
+ *= require nexa-free-bold
 
  */
 
+$yyc-r: #e96144;
+$yyc-b: #72cac7;
+$yyc-y: #f1e979;
+$yyc-g: #494a4a;
+
+
 html, body {
 	height: 100%;
+	font-family: 'nexa_lightregular', arial, sans-serif;
 }
+
+h1 {
+	font-family: 'nexa_boldregular', arial, sans-serif;
+	font-size: 1.125rem;
+	text-transform: uppercase;
+	color: $yyc-r;
+}
+
+h2 {
+	font-family: 'nexa_boldregular', arial, sans-serif;
+	font-size: 2rem;
+	text-transform: none;
+	color: $yyc-b;
+}
+
+h3 {
+	font-family: 'nexa_lightregular', arial, sans-serif;
+	font-size: 2rem;
+	text-transform: none;
+	color: $yyc-g;
+}
+
+strong {
+	font-family: 'nexa_boldregular', arial, sans-serif;
+}
+
 
 #wrapper {
 	min-height: 100%;
 	position: relative;
 }
 
+.hidden { display: none; }
+
+.top-bar-section .dropdown li.title h5 a {
+	line-height: normal;
+}
+
+.top-bar {
+	height: 70px;
+	z-index: 110;
+
+	a {
+		font-family: 'nexa_boldregular', arial, sans-serif !important;
+		font-weight: bold;
+		text-transform: uppercase !important;
+	}
+
+	.name {
+		height: 70px;
+		h1 {
+			line-height: 70px;
+
+			a {
+				padding: 0;
+				padding-left: 20px;
+			}
+		}
+	}
+
+	.toggle-topbar.menu-icon {
+		background: $yyc-b;
+		top: 0;
+		right: 0;
+		margin-top: 0;
+		padding: 0 10px;
+		
+		a {
+			height: 70px;
+			line-height: 152px;
+		}
+
+		a:after {
+			top: 18px;
+			right: 3px;
+		}
+	}
+}
+
+#logo svg {
+	width: 100px;
+	height: 70px;
+}
+
+.twitter-container {
+	vertical-align: middle;
+
+	.columns {
+		margin-bottom: 20px;
+	}
+}
+
+.twitter {
+	display: inline-block;
+	vertical-align: middle;
+	width: 50px;
+	height: 40px;
+
+	svg {
+		width: 40px;
+	}
+}
+
+.tweet-bubble {
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	line-height: 40px;
+	height: 40px;
+	margin-left: 10px;
+	padding: 0 25px;
+
+	&:before {
+		content: "";
+		position: absolute;
+		margin-left: -35px;
+		margin-top: 15px;
+		border-top: 5px solid transparent;
+		border-bottom: 5px solid transparent;
+	}
+
+	&.red { background: $yyc-r; }
+	&.red:before { border-right: 10px solid $yyc-r; }
+
+	&.blue { background: $yyc-b; }
+	&.blue:before {border-right: 10px solid $yyc-b; }
+
+	a {
+		font-family: "nexa_boldregular", Arial, sans-serif;
+		color: #fff;
+	}
+}
+
 #content-wrapper {
-	padding-bottom: 5rem;
+	padding-bottom: 15rem;
+
+	& > .row {
+		padding-top: 50px;
+		padding-bottom: 50px;
+	}
+}
+
+#message-container {
+	position: fixed;
+	z-index: 100;
+	width: 100%;
+	max-width: none;
+	padding: 0 !important;
 }
 
 footer {
 	position: absolute;
-	background: #3d1a00;
-	min-height: 5rem;
+	background: $yyc-g;
+	min-height: 15rem;
+	padding-top: 1rem;
 	width: 100%;	
 	bottom: 0;
+	color: #fff;
 
-	a.twitter-hashtag-button {
+	a.twitter-hashtag-button,
+	a.twitter-follow-button {
 		display: none;
+	}
+
+	.row {
+		margin-top: 20px;
+		margin-bottom: 30px;
 	}
 }
 
 #map img {
 	max-width: none;
+}
+
+.has-flags {
+	padding-top: 40px;
+	background: transparent -100px top repeat-x;
+	background-image: image-url('flags.png');
+}
+
+#event-list h1 {
+	text-align: center;
+	color: $yyc-g;
+}
+
+@media only screen and (min-width: 40.063em) {
+	#logo svg {
+		width: 180px;
+		height: 152px;
+		position: absolute;
+		left: 20px;
+	}
+
+	.top-bar-section .dropdown li:not(.has-form) a:not(.button) {
+		line-height: 52px;		
+	}
+
+	.top-bar {
+		height: 152px;
+
+		.name {
+			height: 152px;
+			h1 {
+				line-height: 152px;
+			}
+		}
+
+		.toggle-topbar.menu-icon {
+			a {
+				height: 152px;
+				line-height: 152px;
+			}
+		}
+	}
+
+	footer .row { margin-top: 40px; margin-bottom: 30px; }
+
+	.twitter-container .columns { margin-bottom: 0; }
+
+}
+@media only screen and (min-width: 64.063em) {
+	#message-container {
+		width: 80%;
+		left: 10%;
+	}
+}
+@media only screen and (min-width: 90.063em) {
+	#message-container {
+		width: 70%;
+		left: 15%;
+	}
+}
+@media only screen and (min-width: 120.063em) {
+	#message-container {
+		width: 50%;
+		left: 25%;
+	}
+}
+@media only screen and (orientation: landscape) {
+
+}
+@media only screen and (orientation: portrait) {
+
 }

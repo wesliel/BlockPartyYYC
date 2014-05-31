@@ -9,6 +9,54 @@
 	height: 300px;
 }
 
+small.error-message ul {
+	list-style: none;
+	margin-left: 0;
+	font-size: 0.8rem;
+	font-style: italic;
+}
+
+.window-wrapper {
+	position: relative;
+
+	.icon {
+		position: absolute;
+		display: none;
+		top: 0;
+		left: 0;
+		width: 40px;
+		height: 40px;
+
+		svg {
+			width: 40px;
+			height: 40px;
+		}
+	}
+
+	.info {
+		padding-left: 50px;
+
+		h4 {
+			font-size: 0.8rem;
+			margin: 0;
+		}
+
+		a { font-size: 0.6rem; }
+		strong { font-size: 0.6rem; }
+
+		p {
+			margin: 5px 0;
+			line-height: 0.8;
+		}
+	}
+
+	&.BBQ .icon.bbq {display: block;}
+	&.Potluck .icon.potluck {display: block;}
+	&.Picnic .icon.picnic {display: block;}
+	&.Catered .icon.catered {display: block;}
+
+}
+
 @media only screen and (min-width: 40.063em) {
 }
 @media only screen and (min-width: 64.063em) {
