@@ -48,3 +48,4 @@ gem "binding_of_caller", group: :development
 
 gem 'newrelic_rpm', group: :production
 gem 'rails_12factor', group: :production
+gem 'rails_serve_static_assets', group: :production

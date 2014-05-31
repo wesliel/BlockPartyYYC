@@ -87,5 +87,7 @@ Rails.application.configure do
   # Precompile additional assets
   config.assets.precompile += %w( .svg .eot .woff .ttf )  
 
-  config.assets.debug = true
+  config.serve_static_assets = true
+
+  config.assets.compile = true
 end
