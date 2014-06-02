@@ -51,9 +51,9 @@ class EventController < ApplicationController
 		@event = Event.find(params[:id])
 
 		if @event.update(:deleted => 1)
-			redirect_to event_index_url, :notice => 'Event deleted'
+			redirect_to mine_event_index_url, :notice => 'Event deleted'
 		else
-			redirect_to event_index_url, :alert => 'Error deleting event'
+			redirect_to mine_event_index_url, :alert => 'Error deleting event'
 		end
 	end
 
@@ -73,8 +73,8 @@ class EventController < ApplicationController
 		client = Twitter::REST::Client.new do |config|
 		  config.consumer_key        = "KldkSggbsWhBkaP9rnDXHSDfd"
 		  config.consumer_secret     = "NYnAW2YJsuj04zgXzcef2sZQ1yIMcxCdjOjaF0JymF9ValOuAp"
-		  config.access_token        = "2495626352-ylmiDmS8h3b6p3FjGzIm6GWn9VwVAQEhwlHHnHc"
-		  config.access_token_secret = "mGfx7hXHBlxdeQCnaAXO5cU5UQsLXr1Kc0b30a8IiHX5O"
+		  config.access_token        = "2495626352-9rSuIrseKlEeFtK4ayFSq2KjT6RUorHmVxWi8If"
+		  config.access_token_secret = "WIvdyxUTU56iKzFDlcZNIMwTmlU19ntGbTXkiIXZaXyr0"
 		end
 		client.update("Like #{new_event.event_type} parties? @#{new_event.user.name} is having one. Check it out: http://YYCYouThere.com/event/#{new_event.id} #NeighbourDayYYC")
 	end
