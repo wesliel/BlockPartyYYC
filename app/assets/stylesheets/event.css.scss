@@ -16,6 +16,8 @@ small.error-message ul {
 	font-style: italic;
 }
 
+.gm-style-iw, .gm-style-iw div:first-child { overflow: hidden !important; }
+
 .window-wrapper {
 	position: relative;
 
@@ -45,7 +47,8 @@ small.error-message ul {
 		strong { font-size: 0.6rem; }
 
 		p {
-			margin: 5px 0;
+			margin: 0;
+			margin-top: 4px;
 			line-height: 0.8;
 		}
 	}
@@ -55,6 +58,23 @@ small.error-message ul {
 	&.Picnic .icon.picnic {display: block;}
 	&.Catered .icon.catered {display: block;}
 
+	.fa-child, .fa-glass { display: none; }
+	&.all_age .fa-child { display: inline-block; }
+	&.alcohol .fa-glass { display: inline-block; }
+
+}
+
+.share i {
+	font-size: 2rem;
+}
+
+#party-list {
+	list-style: none;
+	margin-left: 0;
+
+	li {
+		margin-bottom: 10px;
+	}
 }
 
 @media only screen and (min-width: 40.063em) {

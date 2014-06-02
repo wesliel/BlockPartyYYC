@@ -11,6 +11,7 @@
 		mapZoom = 11,
 		mapConfig = [{"featureType":"landscape","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"stylers":[{"hue":"#00aaff"},{"saturation":-100},{"gamma":2.15},{"lightness":12}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"visibility":"on"},{"lightness":24}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":57}]}],
 		mapObj = null,
+		markerPaths = {},
 		markerList = [],
 		latLngList = [],
 		infoWindowList = {},
@@ -35,6 +36,7 @@
 			} else {
 				infoWindowContent = infoWindowTemplate.clone().html();
 				infoWindowContent = infoWindowContent
+					.replace(/\[id\]/g, markerData['id'])
 					.replace(/\[event_type\]/g, markerData['event_type'])
 					.replace(/\[title\]/g, markerData['title'])
 					.replace(/\[address\]/g, markerData['address'])
@@ -42,7 +44,9 @@
 					.replace(/\[community\]/g, markerData['community'])
 					.replace(/\[start_time\]/g, markerData['start_time'])
 					.replace(/\[end_time\]/g, markerData['end_time'])
-					.replace(/\[user_name\]/g, markerData['user']['name']);
+					.replace(/\[user_name\]/g, markerData['user']['name'])
+					.replace(/\[all_age\]/g, markerData['all_age'] === 0 ? '' : 'all_age')
+					.replace(/\[alcohol\]/g, markerData['alcohol'] === 0 ? '' : 'alcohol');
 
 				infoWindowList[markerData['id']] = infoWindowContent;
 			}
@@ -50,10 +54,105 @@
 			infoWindowObj.close();
 			infoWindowObj.setContent(infoWindowContent);
 			infoWindowObj.open(marker.get('map'), marker);
-		})
+		});
 	}
 
 	function _initMap() {
+		function _buildMarker(markerData, index) {
+			markerList.push([
+				new google.maps.Marker({
+  				position: new google.maps.LatLng( markerData['lat'], markerData['long']),
+  				map: mapObj,
+  				icon: markerPaths[markerData['event_type'].toLowerCase()]['base'],
+  				title: markerData['title']
+				}),
+				new google.maps.Marker({
+  				position: new google.maps.LatLng( markerData['lat'], markerData['long']),
+  				map: mapObj,
+  				icon: markerPaths[markerData['event_type'].toLowerCase()]['top'],
+  				title: markerData['title']
+				})
+			]);
+
+			_attachInfoWindow(markerList[index][0], index, markerData);
+			_attachInfoWindow(markerList[index][1], index, markerData);
+		}
+
+		markerPaths = {
+			'bbq': {
+				base: {
+					path: 'M 16.1,0C7.2,0,0,7.2,0,16.1c0,2.2,0.4,4.3,1.2,6.2h0l0,0c0.2,0.6,14.9,30.3,14.9,30.3l14.2-28.8c1.2-2.3,1.9-4.9,1.9-7.6C32.2,7.2,25,0,16.1,0 z',
+					fillColor: '#4a494a',
+					fillOpacity: 1,
+					strokeWeight: 0,
+					scale: 0.75,
+					anchor: new google.maps.Point(16, 54)
+				},
+				top: {
+					path: 'M 16.1,0C7.2,0,0,7.2,0,16.1c0,2.2,0.4,4.3,1.2,6.2h0l0,0c0.2,0.6,14.9,30.3,14.9,30.3l14.2-28.8c1.2-2.3,1.9-4.9,1.9-7.6C32.2,7.2,25,0,16.1,0 z',
+					fillColor: '#4a494a',
+					fillOpacity: 1,
+					strokeWeight: 0,
+					scale: 0.75,
+					anchor: new google.maps.Point(16, 54)
+				}
+			},
+			'potluck': {
+				base: {
+					path: 'M 16.1,0C7.2,0,0,7.2,0,16.1c0,2.2,0.4,4.3,1.2,6.2h0l0,0c0.2,0.6,14.9,30.3,14.9,30.3l14.2-28.8c1.2-2.3,1.9-4.9,1.9-7.6C32.2,7.2,25,0,16.1,0 z',
+					fillColor: '#72cac7',
+					fillOpacity: 1,
+					strokeWeight: 0,
+					scale: 0.75,
+					anchor: new google.maps.Point(16, 54)
+				},
+				top: {
+					path: 'M 16.1,0C7.2,0,0,7.2,0,16.1c0,2.2,0.4,4.3,1.2,6.2h0l0,0c0.2,0.6,14.9,30.3,14.9,30.3l14.2-28.8c1.2-2.3,1.9-4.9,1.9-7.6C32.2,7.2,25,0,16.1,0 z',
+					fillColor: '#4a494a',
+					fillOpacity: 1,
+					strokeWeight: 0,
+					scale: 0.75,
+					anchor: new google.maps.Point(16, 54)
+				}
+			},
+			'picnic': {
+				base: {
+					path: 'M 16.1,0C7.2,0,0,7.2,0,16.1c0,2.2,0.4,4.3,1.2,6.2h0l0,0c0.2,0.6,14.9,30.3,14.9,30.3l14.2-28.8c1.2-2.3,1.9-4.9,1.9-7.6C32.2,7.2,25,0,16.1,0 z',
+					fillColor: '#4a494a',
+					fillOpacity: 1,
+					strokeWeight: 0,
+					scale: 0.75,
+					anchor: new google.maps.Point(16, 54)
+				},
+				top: {
+					path: 'M 16.1,0C7.2,0,0,7.2,0,16.1c0,2.2,0.4,4.3,1.2,6.2h0l0,0c0.2,0.6,14.9,30.3,14.9,30.3l14.2-28.8c1.2-2.3,1.9-4.9,1.9-7.6C32.2,7.2,25,0,16.1,0 z',
+					fillColor: '#f1e979',
+					fillOpacity: 1,
+					strokeWeight: 0,
+					scale: 0.75,
+					anchor: new google.maps.Point(16, 54)
+				}
+			},
+			'catered': {
+				base: {
+					path: 'M 16.1,0C7.2,0,0,7.2,0,16.1c0,2.2,0.4,4.3,1.2,6.2h0l0,0c0.2,0.6,14.9,30.3,14.9,30.3l14.2-28.8c1.2-2.3,1.9-4.9,1.9-7.6C32.2,7.2,25,0,16.1,0 z',
+					fillColor: '#4a494a',
+					fillOpacity: 1,
+					strokeWeight: 0,
+					scale: 0.8,
+					anchor: new google.maps.Point(16, 54)
+				},				
+				top: {
+					path: 'M 16.1,0C7.2,0,0,7.2,0,16.1c0,2.2,0.4,4.3,1.2,6.2h0l0,0c0.2,0.6,14.9,30.3,14.9,30.3l14.2-28.8c1.2-2.3,1.9-4.9,1.9-7.6C32.2,7.2,25,0,16.1,0 z',
+					fillColor: '#72cac7',
+					fillOpacity: 1,
+					strokeWeight: 0,
+					scale: 0.8,
+					anchor: new google.maps.Point(16, 54)
+				}				
+			}
+		};
+
 		mapObj = new google.maps.Map(document.getElementById('map'), {
 			zoom: mapZoom,
 			center: new google.maps.LatLng(mapCenter.lat, mapCenter.lng),
@@ -68,15 +167,15 @@
 				minWidth: infoWindowWidth
 			});
 
-  		for (var i = 0; i < eventData.length; i++) {
-  			markerList.push(new google.maps.Marker({
-  				position: new google.maps.LatLng( eventData[i]['lat'], eventData[i]['long']),
-  				map: mapObj,
-  				title: eventData[i]['title']
-  			}));
-
-  			_attachInfoWindow(markerList[i], i, eventData[i]);
-  		}
+			if ((typeof eventData.length).toLowerCase() === "undefined") {
+				_buildMarker(eventData, 0);
+				mapObj.setZoom(16);
+				mapObj.panTo(markerList[0][0].position);
+			} else if ((typeof eventData.length).toLowerCase() === "number") {
+	  		for (var i = 0; i < eventData.length; i++) {
+	  			_buildMarker(eventData[i], i);
+	  		}
+			}
   	}
 	}
 

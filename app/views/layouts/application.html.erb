@@ -28,7 +28,7 @@
                 <li class="has-dropdown">
                   <a href="#">Sign In</a>
                   <ul class="dropdown">
-                    <li><%= link_to "Twitter", signin_path(:twitter) %>
+                    <li><%= link_to "Twitter", signin_path(:twitter) %></li>
                   </ul>
                 </li>
               <% else %>
@@ -66,12 +66,13 @@
             <div class="twitter"><%= inline_svg("twitter_blue.svg") %></div><div class="tweet-bubble red"><a href="https://twitter.com/intent/tweet?text=%23NeighbourDayYYC">Tweet #NeighbourDayYYC</a></div>
           </div>
           <div class="columns small-12 medium-6 medium-text-center">
-            <div class="twitter"><%= inline_svg("twitter_yellow.svg") %></div><div class="tweet-bubble blue"><a href="https://twitter.com/intent/follow?screen_name=partypinyyc">Follow @YYCYouThere</a></div>
+            <div class="twitter"><%= inline_svg("twitter_yellow.svg") %></div><div class="tweet-bubble blue"><a href="https://twitter.com/intent/follow?screen_name=YYCYouThere">Follow @YYCYouThere</a></div>
           </div>
         </div>
         <div class="row">
           <div class="columns small-12 text-center">
-            &copy;<%= current_year %> YYCYouThere
+            &copy;<%= current_year %> YYCYouThere, all rights reserved.<br/>
+            This service is brought to you by <a href="http://madebyuppercut.com" target="_blank">Uppercut</a>.
           </div>
         </div>
       </footer>

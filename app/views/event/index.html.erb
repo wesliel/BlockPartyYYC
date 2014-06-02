@@ -4,18 +4,28 @@
 <div class="has-flags"></div>
 <div class="row">
 	<div class="columns small-12">
-	<h1>Good Parties Make Good Neighbours</h1>
-	<p>
-	In the spirit of celebrating the sense of community during the flood in 2013, how the entire city helped out one another to clean up and rebuild the affected neighbourhoods,
-	Mayor Nenshi has declared June 21, 2014 to be Neightbour Day. It will be a chance for people to celebrate the good things that came from overcoming a challenge,
-	and there will be block parties spread across Calgary.
-	</p>
-	<p>
-	This website is dedicated to this day, and its goal to provide a view of where the block parties are.
-	</p>
-	<p>
-	If you would like to throw a party in your community, simply sign in with your Twitter account, and submit your party location.
-	</p>
+		<h1>Good Parties Make Good Neighbours</h1>
+		<p>
+		In the spirit of celebrating the sense of community during the flood in 2013, how the entire city helped out one another to clean up and rebuild the affected neighbourhoods,
+		<a href="https://www.youtube.com/watch?v=be_VJAIv5AI" target="_blank">Mayor Nenshi has declared June 21, 2014 to be Neightbour Day</a>. It will be a chance for people to celebrate the good things that came from overcoming a challenge,
+		and there will be block parties spread across Calgary.
+		</p>
+		<p>
+		For information on how to get involved, and other Neighbour Day tools and templates, <a href="http://www.calgary.ca/General/flood-commemoration/Pages/Section1/1-Neighbour-Day.aspx" target="_blank">visit The City Calgary Official Page.</a>
+		</p>
+		<p>
+		This website is dedicated to this special occasion, and providing a tool for Calgarians to be more involved in their community.
+		</p>
+		<h1>How This Site Works</h1>
+		<ol>
+			<li><a href="http://www.calgary.ca/General/flood-commemoration/Documents/Neighbour-Day-Block-Party-Kit.pdf" target="_blank">Review this guide</a> for planning a Neighbour Day block party. It provides checklists and tips on organizing, as well as information on permit application.</li>
+			<li><%= link_to "Sign in", signin_path(:twitter) %> to YYCYouThere with your Twitter account.</li>
+			<li><%= link_to "Submit a Party", controller: "event", action: "new" %>. Once submitted, it will be tweeted on <a href="http://twitter.com/YYCYouThere">@YYCYouThere</a> as well.</li>
+			<li>Extend the exposure by tweeting about your party!</li>
+		</ol>
+		<p>
+			<strong>Please note:</strong> This tool does not apply for any required permits, nor does it process or waive any necessary fees.
+		</p>	
 	</div>
 </div>
 <%= render 'infowindow' %>

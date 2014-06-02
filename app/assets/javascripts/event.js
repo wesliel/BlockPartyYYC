@@ -31,7 +31,7 @@ var partyPinEvents = partyPinEvents || (function() {
 					$form.find('[name*="[long]"]').val(dataObj.geometry.location.lng);
 					$this.addClass('processed');
 				}
-			});			
+			});
 		}
 	};
 }());
@@ -44,10 +44,25 @@ $(document).ready(function() {
 		},
 		'inactive-class': 'disabled'
 	});
+
 	$('form [name*="[address]"]')
 		.on('change input blur', partyPinEvents.changeHandler)
 		.on('keyup', function(event) {
 			$(this).removeClass('processed');
 		});
+
 	$('form [name*="[date]"]').fdatepicker();
+
+	$('a.delete').on('click', function(event) {
+		event.preventDefault();
+
+		$(this).siblings('.confirm').slideDown();
+	});
+
+	$('.confirm a.no').on('click', function(event) {
+		event.preventDefault();
+
+		$(this).closest('.confirm').slideUp();
+	});
+
 });

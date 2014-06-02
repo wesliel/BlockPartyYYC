@@ -15,6 +15,7 @@ class EventController < ApplicationController
 
 	def show
 		@event = Event.find_by(id: params[:id], deleted: 0.to_s)
+		@event_json = @event.to_json(:include => :user)
 	end
 
 	def new
@@ -25,6 +26,7 @@ class EventController < ApplicationController
 
 		if session[:user_id].to_s == event_params[:user_id].to_s
 			@event.save
+			tweet(@event)
 			redirect_to @event
 		else
 			redirect_to new_event_url, :alert => "Error creating event" + session[:user_id].to_s + ":" + event_params[:user_id]
@@ -57,12 +59,23 @@ class EventController < ApplicationController
 
 	private
 	def event_params
-		params.require(:event).permit(:title, :community, :address, :user_id, :date, :start_time, :end_time, :lat, :long, :event_type)
+		params.require(:event).permit(:title, :community, :address, :user_id, :date, :start_time, :end_time, :lat, :long, :event_type, :all_age, :alcohol)
 	end
 
 	def require_login
 		if session[:user_id] == nil
 			redirect_to root_url, :alert => "You must be logged in first"
 		end
+	end
+
+	# Tweet to YYCYouThere when someone creates a new party
+	def tweet(new_event)
+		client = Twitter::REST::Client.new do |config|
+		  config.consumer_key        = "KldkSggbsWhBkaP9rnDXHSDfd"
+		  config.consumer_secret     = "NYnAW2YJsuj04zgXzcef2sZQ1yIMcxCdjOjaF0JymF9ValOuAp"
+		  config.access_token        = "2495626352-ylmiDmS8h3b6p3FjGzIm6GWn9VwVAQEhwlHHnHc"
+		  config.access_token_secret = "mGfx7hXHBlxdeQCnaAXO5cU5UQsLXr1Kc0b30a8IiHX5O"
+		end
+		client.update("Like #{new_event.event_type} parties? @#{new_event.user.name} is having one. Check it out: http://YYCYouThere.com/event/#{new_event.id} #NeighbourDayYYC")
 	end
 end

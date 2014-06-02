@@ -1,34 +1,43 @@
 <% title "Party details" %>
 <div class="has-flags"></div>
 <div class="row">
-	<div class="columns small-12">
-		<h1><%= yield(:title) %></h1>
+	<div class="columns medium-6 medium-push-6">
+		<h1 class="show-for-small-only"><%= yield(:title) %></h1>
+		<div id="map"></div>
+	</div>
+	<div class="columns medium-6 medium-pull-6">
+		<h1 class="show-for-medium-up"><%= yield(:title) %></h1>
 	<% if @event %>
-
 		<h2><%= @event.title %></h2>
 		<h3><%= @event.community %></h3>
+		<% if (@event.all_age + @event.alcohol) > 0 %>
+			<p>
+			<% if @event.all_age == 1 %>
+			<i class="fa fa-child"></i> This is an all-age party.<br/>
+			<% end %>
+			<% if @event.alcohol == 1 %>
+			<i class="fa fa-glass"></i> This party may have alcohol present.
+			<% end %>
+			</p>
+		<% end %>
 		<p>
-		<%= link_to "@#{@event.user.name}", "https://twitter.com/#{@event.user.name}", target: "_blank" %>
+		<strong>Hosted By:</strong> <%= link_to "@#{@event.user.name}", "https://twitter.com/#{@event.user.name}", target: "_blank" %>
 		</p>
 		<p>
-		Date: <%= @event.date %>
+		<strong>Address:</strong> <%= @event.address %>
 		</p>
 		<p>
-		Start Time: <%= @event.start_time %>
+		<strong>Date:</strong> <%= @event.date %>
 		</p>
 		<p>
-		End Time: <%= @event.end_time %>
+		<strong>Start Time:</strong> <%= @event.start_time %>
 		</p>
 		<p>
-		Address: <%= @event.address %>
+		<strong>End Time:</strong> <%= @event.end_time %>
 		</p>
-		<p>
-		Lat: <%= @event.lat %>
+		<p class="share">
+		<a href="https://twitter.com/intent/tweet?text=<%= URI.escape("Like #{@event.event_type} parties? @#{@event.user.name} is having one. Check it out: http://YYCYouThere.com/event/#{@event.id} #NeighbourDayYYC") %>"><i class="fa fa-twitter-square"></i></a>
 		</p>
-		<p>
-		Long: <%= @event.long %>
-		</p>
-
 	<% else %>
 		<h2>Oops, this party cannot be located</h2>
 		<p>
@@ -37,3 +46,9 @@
 	<% end %>
 	</div>
 </div>
+
+<script type="text/javascript">
+	var eventData = <%= raw(@event_json) %>
+</script>
+
+<%= render "infowindow" %>

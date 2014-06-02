@@ -41,6 +41,7 @@ gem 'capistrano-rails', group: :development
 gem 'debugger', group: [:development, :test]
 
 gem 'json'
+gem 'twitter'
 gem 'omniauth-twitter'
 
 gem "better_errors", group: :development

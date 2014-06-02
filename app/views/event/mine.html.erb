@@ -2,16 +2,26 @@
 <div class="has-flags"></div>
 <div class="row">
 	<div class="columns small-12">
-	<h1><%= yield(:title) %></h1>
-		<% if @event %>
-		<ul>
-		<% @events.each do |evt| %>
-			<li><%= evt.title %> <%= link_to raw("<i class=\"fa fa-pencil\"></i> Edit"), edit_event_path(evt) %> <%= link_to raw("<i class=\"fa fa-trash-o\"></i> Delete"), evt, method: :delete %></li>
-		<% end %>
-		</ul>
-		<% else %>
-		<h2>You have not submitted any parties yet...</h2>
-		<p>... would you like to <%= link_to "create one", controller: "event", action: "new" %> now?</p>
+		<h1><%= yield(:title) %></h1>
+		<% if @events %>
+			<ul id="party-list">
+			<% @events.each do |evt| %>
+				<li>
+					<strong><%= evt.title %></strong><br/>
+					<%= evt.address %><br/>
+					<%= link_to raw("<i class=\"fa fa-pencil\"></i> Edit"), edit_event_path(evt), {:class => "button tiny"} %>
+					<a href="#" class="button tiny delete alert"><i class="fa fa-trash-o"></i> Delete</a>
+					<div class="confirm hidden">
+					 Are you sure?<br/>
+					 <%= link_to raw("<i class=\"fa fa-check\"></i> Yes"), evt, :method => :delete, :class => "button tiny" %>
+					 <a href="#" class="button tiny no"><i class="fa fa-times"></i> No</a>
+					</div>
+				</li>
+			<% end %>
+			</ul>
+			<% else %>
+			<h2>You have not submitted any parties yet...</h2>
+			<p>... would you like to <%= link_to "create one", controller: "event", action: "new" %> now?</p>
 		<% end %>
 	</div>
 </div>

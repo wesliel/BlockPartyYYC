@@ -32,6 +32,19 @@
     <div class="columns small-9"><%= f.select :end_time, time_options, {}, {:required => true, :"data-match" => "time", :"data-required-message" => "Please enter an end time"} %></div>
   </div>
   <div class="row">
+    <div class="columns small-9 small-offset-3"><%= f.check_box :all_age, {}, "1", "0" %> <%= f.label :all_age, "This is an all-age party." %></div>
+  </div>
+  <div class="row">
+    <div class="columns small-9 small-offset-3"><%= f.check_box :alcohol, {}, "1", "0" %> <%= f.label :alcohol, "This party may have alcohol present." %></div>
+  </div>  
+  <div class="row">
+    <div class="columns small-9 small-offset-3 text-right">
+    <p>
+    By clicking "Save Party", you agree to our <%= link_to "Terms", terms_path %>.
+    </p>
+    </div>
+  </div>
+  <div class="row">
   	<div class="columns small-12 text-right"><%= f.submit "Save Party", :class => "button" %></div>
   </div>
 <% end %>

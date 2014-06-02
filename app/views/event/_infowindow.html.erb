@@ -1,12 +1,13 @@
 <div class="template hidden" data-template="infowindow">
-	<div class="window-wrapper [event_type]">
+	<div class="window-wrapper [event_type] [all_age] [alcohol]">
 		<div class="icon bbq"><%= inline_svg("bbq_icon.svg") %></div>
 		<div class="icon potluck"><%= inline_svg("potluck_icon.svg") %></div>
 		<div class="icon picnic"><%= inline_svg("picnic_icon.svg") %></div>
 		<div class="icon catered"><%= inline_svg("catered_icon.svg") %></div>
 		<div class="info">
-			<h4>[title]</h4>
-			<strong>[event_type] by</strong><a href="http://twitter.com/[user_name]"> @[user_name]</a>
+			<h4><a href="/event/[id]">[title]</a></h4>
+			<strong>[event_type] by</strong><a href="http://twitter.com/[user_name]"> @[user_name]</a><br/>
+			<i class="fa fa-child" title="This party is for all-ages"></i><i class="fa fa-glass" title="This party may have alcohol present"></i>
 			<p>
 				<strong>[address]</strong><br/>
 				<strong>[community]</strong>
@@ -15,6 +16,10 @@
 				<strong>[date]</strong><br/>
 				<strong>[start_time] - [end_time]</strong>
 			</p>
+			<p>
+				<a href="/event/[id]">Full Detail</a>
+			</p>
+			<p>&nbsp;</p>
 		</div>
 	</div>
 </div>

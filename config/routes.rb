@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     end
   end
 
+  # Static pages
+  match "/terms" => "page#terms", via: :get
 
   # Authentication
   get "/auth/:provider/callback" => "sessions#create"
