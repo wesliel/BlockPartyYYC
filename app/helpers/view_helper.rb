@@ -25,7 +25,7 @@ module ViewHelper
 
   # Generate an array for different party types
   def party_type_options()
-    ["BBQ", "Picnic", "Potluck", "Catered"]
+    ["BBQ", "Picnic", "Potluck", "Catered", "Community", "Fundraiser", "Other"]
   end
 
   # A function to read a SVG file and output its data

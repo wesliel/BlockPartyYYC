@@ -109,6 +109,30 @@
 				strokeWeight: 0,
 				scale: 0.75,
 				anchor: new google.maps.Point(16, 54)
+			},
+			'community': {
+				path: 'M 16.1,0C7.2,0,0,7.2,0,16.1c0,2.2,0.4,4.3,1.2,6.2h0l0,0c0.2,0.6,14.9,30.3,14.9,30.3l14.2-28.8c1.2-2.3,1.9-4.9,1.9-7.6C32.2,7.2,25,0,16.1,0 z',
+				fillColor: '#b3d454',
+				fillOpacity: 1,
+				strokeWeight: 0,
+				scale: 0.75,
+				anchor: new google.maps.Point(16, 54)
+			},
+			'fundraiser': {
+				path: 'M 16.1,0C7.2,0,0,7.2,0,16.1c0,2.2,0.4,4.3,1.2,6.2h0l0,0c0.2,0.6,14.9,30.3,14.9,30.3l14.2-28.8c1.2-2.3,1.9-4.9,1.9-7.6C32.2,7.2,25,0,16.1,0 z',
+				fillColor: '#dc5279',
+				fillOpacity: 1,
+				strokeWeight: 0,
+				scale: 0.75,
+				anchor: new google.maps.Point(16, 54)
+			},
+			'other': {
+				path: 'M 16.1,0C7.2,0,0,7.2,0,16.1c0,2.2,0.4,4.3,1.2,6.2h0l0,0c0.2,0.6,14.9,30.3,14.9,30.3l14.2-28.8c1.2-2.3,1.9-4.9,1.9-7.6C32.2,7.2,25,0,16.1,0 z',
+				fillColor: '#e5a345',
+				fillOpacity: 1,
+				strokeWeight: 0,
+				scale: 0.75,
+				anchor: new google.maps.Point(16, 54)
 			}
 		};
 
@@ -143,23 +167,16 @@
 			$.ajax({
 				url: 'https://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel_packed.js',
 				type: 'get',
-				dataType: 'jsonp',
+				dataType: 'script',
+				cache: true,
 				success: function(data, status, xhr) {
-					// See error callback since the result is not jsonp, this is a workaround to get browser to cache the response so it can be appended to body immediately.
+					if (navigator.geolocation) {
+					  navigator.geolocation.getCurrentPosition(_gpsHandler, _initMap);
+					} else {
+						_initMap();
+					}
 				},
 				error: function(data, status, xhr) {
-					$('body').append(
-						$('<script>').attr({
-							'type': 'text/javascript',
-							'src': 'https://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel_packed.js'
-						}).ready(function(event) {
-							if (navigator.geolocation) {
-							  navigator.geolocation.getCurrentPosition(_gpsHandler, _initMap);
-							} else {
-								_initMap();
-							}
-						})
-					);
 				}
 			});
 		}
@@ -168,11 +185,15 @@
 
 $(document).ready(function() {
 	if ($('#map').length > 0) {
-		$('body').append(
-			$('<script>').attr({
-				'type': 'text/javascript',
-				'src': 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&callback=partyPinMaps.init'
-			})
-		);
+		$.ajax({
+			url: 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&callback=partyPinMaps.init',
+			type: 'get',
+			dataType: 'script',
+			cache: true,
+			success: function(data, status, xhr) {				
+			},
+			error: function(data, status,xhr) {
+			}
+		});
 	}
 });

@@ -19,6 +19,7 @@ class EventController < ApplicationController
 	end
 
 	def new
+		@event = Event.new
 	end
 
 	def create
@@ -59,7 +60,7 @@ class EventController < ApplicationController
 
 	private
 	def event_params
-		params.require(:event).permit(:title, :community, :address, :user_id, :date, :start_time, :end_time, :lat, :long, :event_type, :all_age, :alcohol)
+		params.require(:event).permit(:id, :title, :community, :address, :user_id, :date, :start_time, :end_time, :lat, :long, :event_type, :all_age, :alcohol)
 	end
 
 	def require_login
@@ -76,6 +77,7 @@ class EventController < ApplicationController
 		  config.access_token        = "2495626352-9rSuIrseKlEeFtK4ayFSq2KjT6RUorHmVxWi8If"
 		  config.access_token_secret = "WIvdyxUTU56iKzFDlcZNIMwTmlU19ntGbTXkiIXZaXyr0"
 		end
-		client.update("Like #{new_event.event_type} parties? @#{new_event.user.name} is having one. Check it out: http://YYCYouThere.com/event/#{new_event.id} #NeighbourDayYYC")
+		event_type = new_event.event_type == "Other" ? "" : new_event.event_type
+		client.update("Like #{event_type} parties? @#{new_event.user.name} is having one. Check it out: http://YYCYouThere.com/event/#{new_event.id} #NeighbourDayYYC")
 	end
 end

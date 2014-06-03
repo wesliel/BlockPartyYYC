@@ -26,10 +26,14 @@ small.error-message ul {
 .marker-label {
 	font-family: 'yycyouthere';
 
+	[class^="icon-"], [class*=" icon-"] {
+		margin-left: -2px;
+		font-size: 0.7rem;
+		color: $yyc-g;
+	}
+
+	margin-left: -10px;
 	&.bbq .icon-bbq { color: #fff; }
-	&.potluck .icon-potluck { color: $yyc-g; }
-	&.picnic .icon-picnic { color: $yyc-g; }
-	&.catered .icon-catered { color: $yyc-g; }
 }
 
 .window-wrapper {
@@ -44,7 +48,7 @@ small.error-message ul {
 		height: 40px;
 
 		[class^="icon-"], [class*=" icon-"] {
-			font-size: 2rem;
+			font-size: 1.5rem;
 		}
 	}
 
@@ -70,6 +74,9 @@ small.error-message ul {
 	&.Potluck .icon.potluck {display: block; color: $yyc-r;}
 	&.Picnic .icon.picnic {display: block; color: $yyc-y;}
 	&.Catered .icon.catered {display: block; color: $yyc-b;}
+	&.Community .icon.community {display: block; color: #b3d454;}
+	&.Fundraiser .icon.fundraiser {display: block; color: #dc5279;}
+	&.Other .icon.other {display: block; color: #e5a345;}
 
 	.fa-child, .fa-glass { display: none; }
 	&.all_age .fa-child { display: inline-block; }
