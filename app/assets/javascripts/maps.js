@@ -140,19 +140,28 @@
 
 	return {
 		init: function() {
-
-			$('body').append(
-				$('<script>').attr({
-					'type': 'text/javascript',
-					'src': 'https://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel_packed.js'
-				})
-			);
-
-			if (navigator.geolocation) {
-			  navigator.geolocation.getCurrentPosition(_gpsHandler, _initMap);
-			} else {
-				_initMap();
-			}
+			$.ajax({
+				url: 'https://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel_packed.js',
+				type: 'get',
+				dataType: 'jsonp',
+				success: function(data, status, xhr) {
+					// See error callback since the result is not jsonp, this is a workaround to get browser to cache the response so it can be appended to body immediately.
+				},
+				error: function(data, status, xhr) {
+					$('body').append(
+						$('<script>').attr({
+							'type': 'text/javascript',
+							'src': 'https://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel_packed.js'
+						}).ready(function(event) {
+							if (navigator.geolocation) {
+							  navigator.geolocation.getCurrentPosition(_gpsHandler, _initMap);
+							} else {
+								_initMap();
+							}
+						})
+					);
+				}
+			});
 		}
 	};
 }());
