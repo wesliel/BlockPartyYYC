@@ -1,4 +1,4 @@
-<%= form_for @event, html: { 'novalidate' => true }, url: @event.id ? edit_event_path(@event.id) : event_index_path do |f| %>
+<%= form_for @event, html: { 'novalidate' => true }, url: @event.id ? event_path(@event.id) : event_index_path do |f| %>
   <%= f.hidden_field :id, :"data-silent" => "" %>
   <%= f.hidden_field :lat, :required => true, :"data-silent" => "" %>
   <%= f.hidden_field :long, :required => true, :"data-silent" => "" %>

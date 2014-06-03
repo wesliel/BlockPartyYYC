@@ -27,7 +27,7 @@ class EventController < ApplicationController
 
 		if session[:user_id].to_s == event_params[:user_id].to_s
 			@event.save
-			tweet(@event)
+			tweet("Like#{event_twitter_name} parties? @#{@event.user.name} is having one. Check it out: http://YYCYouThere.com/event/#{@event.id} #NeighbourDayYYC")
 			redirect_to @event
 		else
 			redirect_to new_event_url, :alert => "Error creating event" + session[:user_id].to_s + ":" + event_params[:user_id]
@@ -42,6 +42,7 @@ class EventController < ApplicationController
 		@event = Event.find(params[:id])
 
 		if @event.update(event_params)
+			tweet("Going to @#{@event.user.name}'s #{event_twitter_name} party? It has been updated. Check it out: http://YYCYouThere.com/event/#{@event.id} #NeighbourDayYYC")
 			redirect_to @event
 		else
 			render 'edit'
@@ -52,6 +53,7 @@ class EventController < ApplicationController
 		@event = Event.find(params[:id])
 
 		if @event.update(:deleted => 1)
+			tweet("Going to @#{@event.user.name}'s #{event_twitter_name} party? Looks like it has been cancelled. Find another one at: http://YYCYouThere.com/ #NeighbourDayYYC")
 			redirect_to mine_event_index_url, :notice => 'Event deleted'
 		else
 			redirect_to mine_event_index_url, :alert => 'Error deleting event'
@@ -70,14 +72,18 @@ class EventController < ApplicationController
 	end
 
 	# Tweet to YYCYouThere when someone creates a new party
-	def tweet(new_event)
+	def tweet(my_tweet)
 		client = Twitter::REST::Client.new do |config|
 		  config.consumer_key        = "KldkSggbsWhBkaP9rnDXHSDfd"
 		  config.consumer_secret     = "NYnAW2YJsuj04zgXzcef2sZQ1yIMcxCdjOjaF0JymF9ValOuAp"
 		  config.access_token        = "2495626352-9rSuIrseKlEeFtK4ayFSq2KjT6RUorHmVxWi8If"
 		  config.access_token_secret = "WIvdyxUTU56iKzFDlcZNIMwTmlU19ntGbTXkiIXZaXyr0"
 		end
-		event_type = new_event.event_type == "Other" ? "" : new_event.event_type
-		client.update("Like #{event_type} parties? @#{new_event.user.name} is having one. Check it out: http://YYCYouThere.com/event/#{new_event.id} #NeighbourDayYYC")
+		
+		client.update(my_tweet)
+	end
+
+	def event_twitter_name
+		@event.event_type == "Other" ? "" : " #{@event.event_type}"
 	end
 end
