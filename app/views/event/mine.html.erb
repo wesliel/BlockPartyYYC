@@ -7,7 +7,7 @@
 			<ul id="party-list">
 			<% @events.each do |evt| %>
 				<li>
-					<strong><%= evt.title %></strong><br/>
+					<strong><%= link_to evt.title, evt %></strong><br/>
 					<%= evt.address %><br/>
 					<%= link_to raw("<i class=\"fa fa-pencil\"></i> Edit"), edit_event_path(evt), {:class => "button tiny"} %>
 					<a href="#" class="button tiny delete alert"><i class="fa fa-trash-o"></i> Delete</a>

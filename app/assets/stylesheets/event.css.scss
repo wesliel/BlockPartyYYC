@@ -4,6 +4,11 @@
 
 //= require foundation-datepicker
 
+$yyc-r: #e96144;
+$yyc-b: #72cac7;
+$yyc-y: #f1e979;
+$yyc-g: #494a4a;
+
 #map {
 	width: 100%;
 	height: 300px;
@@ -18,20 +23,28 @@ small.error-message ul {
 
 .gm-style-iw, .gm-style-iw div:first-child { overflow: hidden !important; }
 
+.marker-label {
+	font-family: 'yycyouthere';
+
+	&.bbq .icon-bbq { color: #fff; }
+	&.potluck .icon-potluck { color: $yyc-g; }
+	&.picnic .icon-picnic { color: $yyc-g; }
+	&.catered .icon-catered { color: $yyc-g; }
+}
+
 .window-wrapper {
 	position: relative;
 
 	.icon {
 		position: absolute;
 		display: none;
-		top: 0;
+		top: 5px;
 		left: 0;
 		width: 40px;
 		height: 40px;
 
-		svg {
-			width: 40px;
-			height: 40px;
+		[class^="icon-"], [class*=" icon-"] {
+			font-size: 2rem;
 		}
 	}
 
@@ -53,10 +66,10 @@ small.error-message ul {
 		}
 	}
 
-	&.BBQ .icon.bbq {display: block;}
-	&.Potluck .icon.potluck {display: block;}
-	&.Picnic .icon.picnic {display: block;}
-	&.Catered .icon.catered {display: block;}
+	&.BBQ .icon.bbq {display: block; color: $yyc-g;}
+	&.Potluck .icon.potluck {display: block; color: $yyc-r;}
+	&.Picnic .icon.picnic {display: block; color: $yyc-y;}
+	&.Catered .icon.catered {display: block; color: $yyc-b;}
 
 	.fa-child, .fa-glass { display: none; }
 	&.all_age .fa-child { display: inline-block; }

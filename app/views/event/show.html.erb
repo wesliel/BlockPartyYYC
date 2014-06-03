@@ -38,6 +38,15 @@
 		<p class="share">
 		<a href="https://twitter.com/intent/tweet?text=<%= URI.escape("Like #{@event.event_type} parties? @#{@event.user.name} is having one. Check it out: http://YYCYouThere.com/event/#{@event.id} #NeighbourDayYYC") %>"><i class="fa fa-twitter-square"></i></a>
 		</p>
+		<% if @event.user.id == current_user.id %>
+			<%= link_to raw("<i class=\"fa fa-pencil\"></i> Edit"), edit_event_path(@event), {:class => "button tiny"} %>
+			<a href="#" class="button tiny delete alert"><i class="fa fa-trash-o"></i> Delete</a>
+			<div class="confirm hidden">
+			Are you sure?<br/>
+			<%= link_to raw("<i class=\"fa fa-check\"></i> Yes"), @event, :method => :delete, :class => "button tiny" %>
+			<a href="#" class="button tiny no"><i class="fa fa-times"></i> No</a>
+			</div>
+		<% end %>
 	<% else %>
 		<h2>Oops, this party cannot be located</h2>
 		<p>

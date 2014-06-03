@@ -15,6 +15,7 @@
  *= require foundation_and_overrides
  *= require nexa-free-light
  *= require nexa-free-bold
+ *= require yycyouthere
 
  */
 
@@ -148,6 +149,7 @@ strong {
 	height: 40px;
 	margin-left: 10px;
 	padding: 0 25px;
+	font-size: 0.8rem;
 
 	&:before {
 		content: "";
@@ -196,14 +198,13 @@ footer {
 	bottom: 0;
 	color: #fff;
 
-	a.twitter-hashtag-button,
-	a.twitter-follow-button {
-		display: none;
-	}
-
 	.row {
 		margin-top: 20px;
 		margin-bottom: 30px;
+	}
+
+	.copyright {
+		font-size: 0.6rem;
 	}
 }
 
