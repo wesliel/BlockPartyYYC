@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
+//= require jquery.anagram-trackable.0.1.min
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
