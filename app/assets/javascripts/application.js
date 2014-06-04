@@ -16,4 +16,4 @@
 //= require jquery.anagram-trackable.0.1.min
 //= require_tree .
 
-$(function(){ $(document).foundation(); });
+$(function(){ $(document).foundation(); $('body').anagramTrackable(); });
