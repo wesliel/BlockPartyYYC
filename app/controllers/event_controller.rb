@@ -27,7 +27,7 @@ class EventController < ApplicationController
 
 		if session[:user_id].to_s == event_params[:user_id].to_s
 			@event.save
-			tweet("Like#{event_twitter_name} parties? @#{@event.user.name} is having one. Check it out: http://YYCYouThere.com/event/#{@event.id} #NeighbourDayYYC")
+			tweet("Like#{event_twitter_name} #{event_counter(true)}? @#{@event.user.name} is having one. Check it out: http://YYCYouThere.com/event/#{@event.id}#{hash_tag}")
 			redirect_to @event
 		else
 			redirect_to new_event_url, :alert => "Error creating event" + session[:user_id].to_s + ":" + event_params[:user_id]
@@ -42,7 +42,7 @@ class EventController < ApplicationController
 		@event = Event.find(params[:id])
 
 		if @event.update(event_params)
-			tweet("Going to @#{@event.user.name}'s #{event_twitter_name} party? It has been updated. Check it out: http://YYCYouThere.com/event/#{@event.id} #NeighbourDayYYC")
+			tweet("Going to @#{@event.user.name}'s #{event_twitter_name} #{event_counter(false)}? It has been updated. Check it out: http://YYCYouThere.com/event/#{@event.id}#{hash_tag}")
 			redirect_to @event
 		else
 			render 'edit'
@@ -53,7 +53,7 @@ class EventController < ApplicationController
 		@event = Event.find(params[:id])
 
 		if @event.update(:deleted => 1)
-			tweet("Going to @#{@event.user.name}'s #{event_twitter_name} party? Looks like it has been cancelled. Find another one at: http://YYCYouThere.com/ #NeighbourDayYYC")
+			tweet("Going to @#{@event.user.name}'s #{event_twitter_name} #{event_counter(false)}? Looks like it has been cancelled. Find another one at: http://YYCYouThere.com/#{hash_tag}")
 			redirect_to mine_event_index_url, :notice => 'Event deleted'
 		else
 			redirect_to mine_event_index_url, :alert => 'Error deleting event'
@@ -85,5 +85,30 @@ class EventController < ApplicationController
 
 	def event_twitter_name
 		@event.event_type == "Other" ? "" : " #{@event.event_type}"
+	end
+
+	def event_counter(is_plural)
+		return_string = ""
+
+		case @event.event_type
+			when "BBQ"
+				return is_plural ? "parties" : "party"
+			when "Potluck"
+				return is_plural ? "parties" : "party"
+			when "Catered"
+				return is_plural ? "parties" : "party"
+			when "Picnic"
+				return is_plural ? "parties" : "party"
+			when "Community"
+				return is_plural ? "events" : "event"
+			when "Fundraiser"
+				return is_plural ? "events" : "event"
+			when "Other"
+				return is_plural ? "events" : "event"
+		end
+	end
+
+	def hash_tag
+		@event.date == "06/21/2014" ? " #NeighbourDayYYC" : ""
 	end
 end
