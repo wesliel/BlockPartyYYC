@@ -10,7 +10,11 @@ class EventController < ApplicationController
 	end
 
 	def mine
-		@events = Event.where(:user_id => session[:user_id].to_s, :deleted => 0.to_s)
+		if session[:user_id].to_s == "1"
+			@events = Event.where(:deleted => 0.to_s)
+		else
+			@events = Event.where(:user_id => session[:user_id].to_s, :deleted => 0.to_s)
+		end
 	end
 
 	def show
@@ -36,27 +40,38 @@ class EventController < ApplicationController
 
 	def edit
 		@event = Event.find(params[:id])
+		if !has_access
+			redirect_to @event, :alert => "You did not submit this event!"
+		end
 	end
 
 	def update
 		@event = Event.find(params[:id])
 
-		if @event.update(event_params)
-			tweet("Going to @#{@event.user.name}'s #{event_twitter_name} #{event_counter(false)}? It has been updated. Check it out: http://YYCYouThere.com/event/#{@event.id}#{hash_tag}")
-			redirect_to @event
+		if !has_access
+			redirect_to @event, :alert => "You did not submit this event"
 		else
-			render 'edit'
+			if @event.update(event_params)
+				tweet("Going to @#{@event.user.name}'s #{event_twitter_name} #{event_counter(false)}? It has been updated. Check it out: http://YYCYouThere.com/event/#{@event.id}#{hash_tag}")
+				redirect_to @event
+			else
+				render 'edit'
+			end
 		end
 	end
 
 	def destroy
 		@event = Event.find(params[:id])
 
-		if @event.update(:deleted => 1)
-			tweet("Going to @#{@event.user.name}'s #{event_twitter_name} #{event_counter(false)}? Looks like it has been cancelled. Find another one at: http://YYCYouThere.com/#{hash_tag}")
-			redirect_to mine_event_index_url, :notice => 'Event deleted'
+		if !has_access
+			redirect_to @event, :alert => "You did not submit this event!"
 		else
-			redirect_to mine_event_index_url, :alert => 'Error deleting event'
+			if @event.update(:deleted => 1)
+				tweet("Going to @#{@event.user.name}'s #{event_twitter_name} #{event_counter(false)}? Looks like it has been cancelled. Find another one at: http://YYCYouThere.com/#{hash_tag}")
+				redirect_to mine_event_index_url, :notice => 'Event deleted'
+			else
+				redirect_to mine_event_index_url, :alert => 'Error deleting event'
+			end
 		end
 	end
 
@@ -110,5 +125,13 @@ class EventController < ApplicationController
 
 	def hash_tag
 		@event.date == "06/21/2014" ? " #NeighbourDayYYC" : ""
+	end
+
+	def has_access
+		if (session[:user_id] == @event.user.id) or (session[:user_id].to_s == "1")
+			return true
+		else
+			return false
+		end
 	end
 end
