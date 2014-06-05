@@ -96,7 +96,7 @@ class EventController < ApplicationController
 		  config.access_token_secret = "WIvdyxUTU56iKzFDlcZNIMwTmlU19ntGbTXkiIXZaXyr0"
 		end
 		
-		#client.update(my_tweet)
+		client.update(my_tweet)
 	end
 
 	def event_twitter_name
