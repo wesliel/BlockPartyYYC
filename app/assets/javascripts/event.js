@@ -39,7 +39,7 @@ var partyPinEvents = partyPinEvents || (function() {
 $(document).ready(function() {
 	$('form').anagramValidation({
 		'patterns': {
-			'date': {'pattern': '^\\d{1,2}/\\d{1,2}/\\d{4}$', 'message': 'Please enter a valid date'},
+			'date': {'pattern': '^\\d{4}\\-\\d{1,2}\\-\\d{1,2}$', 'message': 'Please enter a valid date'},
 			'time': {'pattern': '^\\d{1,2}:\\d{2}(((AM)|(PM))|((am)|(pm)))$', 'message': 'Please enter a valid time'}
 		},
 		'inactive-class': 'disabled'

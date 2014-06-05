@@ -6,7 +6,8 @@ class EventController < ApplicationController
 
 	# Displays all the events
 	def index
-		@events_json = Event.where("lat IS NOT NULL AND long IS NOT NULL AND deleted = 0").to_json(:include => :user)
+		today = Time.now.strftime("%Y-%m-%d")
+		@events_json = Event.where("lat IS NOT NULL AND long IS NOT NULL AND deleted = 0 AND date >= '#{today}'").to_json(:include => :user)
 	end
 
 	def mine
@@ -95,7 +96,7 @@ class EventController < ApplicationController
 		  config.access_token_secret = "WIvdyxUTU56iKzFDlcZNIMwTmlU19ntGbTXkiIXZaXyr0"
 		end
 		
-		client.update(my_tweet)
+		#client.update(my_tweet)
 	end
 
 	def event_twitter_name

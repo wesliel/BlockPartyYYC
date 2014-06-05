@@ -22,7 +22,7 @@
 
   <div class="row">
   	<div class="columns small-3"><%= f.label :date %></div>
-  	<div class="columns small-9"><%= f.text_field :date, :required => true, :"data-match" => "date", :"data-required-message" => "Please enter party date", :value => "2014-06-21", :"data-date-format" => "yyyy-mm-dd" %></div>
+  	<div class="columns small-9"><%= f.text_field :date, :required => true, :"data-match" => "date", :"data-required-message" => "Please enter party date", :value => @event.date ? @event.date : "2014-06-21", :"data-date-format" => "yyyy-mm-dd" %></div>
   </div>
   <div class="row">
   	<div class="columns small-3"><%= f.label :start_time %></div>
