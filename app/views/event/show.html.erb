@@ -1,4 +1,4 @@
-<% title "Party details" %>
+<% title "Event details" %>
 <div class="has-flags"></div>
 <div class="row">
 	<div class="columns medium-6 medium-push-6">
@@ -13,10 +13,10 @@
 		<% if (@event.all_age + @event.alcohol) > 0 %>
 			<p>
 			<% if @event.all_age == 1 %>
-			<i class="fa fa-child"></i> This is an all-age party.<br/>
+			<i class="fa fa-child"></i> This is an all-age event.<br/>
 			<% end %>
 			<% if @event.alcohol == 1 %>
-			<i class="fa fa-glass"></i> This party may have alcohol present.
+			<i class="fa fa-glass"></i> This event may have alcohol present.
 			<% end %>
 			</p>
 		<% end %>
@@ -50,7 +50,7 @@
 			<% end %>
 		<% end %>
 	<% else %>
-		<h2>Oops, this party cannot be located</h2>
+		<h2>Oops, this event cannot be located</h2>
 		<p>
 			Perhaps it hasn't been submitted, why don't you <%= link_to "do that now?", controller: "event", action: "new" %>
 		</p>

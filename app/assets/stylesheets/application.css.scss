@@ -213,9 +213,11 @@ footer {
 }
 
 .has-flags {
+	width: 100%;
 	padding-top: 40px;
 	background: transparent -100px top repeat-x;
 	background-image: image-url('flags.png');
+	z-index: 20;
 }
 
 #event-list h1 {

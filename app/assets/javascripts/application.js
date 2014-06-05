@@ -14,6 +14,13 @@
 //= require jquery_ujs
 //= require foundation
 //= require jquery.anagram-trackable.0.1.min
+//= require jquery.sticky
 //= require_tree .
 
-$(function(){ $(document).foundation(); $('body').anagramTrackable(); });
+$(function(){
+	$(document).foundation();
+	$('body').anagramTrackable();
+
+	$(".has-flags").sticky({ topSpacing: $('nav.top-bar').height() });
+	$(window).scroll();
+});

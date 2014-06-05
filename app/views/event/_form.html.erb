@@ -5,7 +5,7 @@
   <%= f.hidden_field :user_id, :required => true, :"data-silent" => "", :value => session[:user_id] %>
   <div class="row">
     <div class="columns small-3"><%= f.label :title %></div>
-    <div class="columns small-9"><%= f.text_field :title, :required => true, :"data-required-message" => "Please enter a name of your party", :placeholder => "e.g.: Joe's Great BBQ" %></div>
+    <div class="columns small-9"><%= f.text_field :title, :required => true, :"data-required-message" => "Please enter a name of your event", :placeholder => "e.g.: Joe's Great BBQ" %></div>
   </div>
   <div class="row">
   	<div class="columns small-3"><%= f.label :community %></div>
@@ -17,12 +17,12 @@
   </div>
   <div class="row">
     <div class="columns small-3"><%= f.label :event_type %></div>
-    <div class="columns small-9"><%= f.select :event_type, party_type_options, {}, {:required => true, :"data-required-message" => "Please select a party type"} %></div>
+    <div class="columns small-9"><%= f.select :event_type, party_type_options, {}, {:required => true, :"data-required-message" => "Please select a event type"} %></div>
   </div>
 
   <div class="row">
   	<div class="columns small-3"><%= f.label :date %></div>
-  	<div class="columns small-9"><%= f.text_field :date, :required => true, :"data-match" => "date", :"data-required-message" => "Please enter party date", :value => @event.date ? @event.date : "2014-06-21", :"data-date-format" => "yyyy-mm-dd" %></div>
+  	<div class="columns small-9"><%= f.text_field :date, :required => true, :"data-match" => "date", :"data-required-message" => "Please enter event date", :value => @event.date ? @event.date : "2014-06-21", :"data-date-format" => "yyyy-mm-dd" %></div>
   </div>
   <div class="row">
   	<div class="columns small-3"><%= f.label :start_time %></div>
@@ -33,19 +33,19 @@
     <div class="columns small-9"><%= f.select :end_time, time_options, {}, {:required => true, :"data-match" => "time", :"data-required-message" => "Please enter an end time"} %></div>
   </div>
   <div class="row">
-    <div class="columns small-12 medium-9 medium-offset-3"><%= f.check_box :all_age, {}, "1", "0" %> <%= f.label :all_age, "This is an all-age party." %></div>
+    <div class="columns small-12 medium-9 medium-offset-3"><%= f.check_box :all_age, {}, "1", "0" %> <%= f.label :all_age, "This is an all-age event." %></div>
   </div>
   <div class="row">
-    <div class="columns small-12 medium-9 medium-offset-3"><%= f.check_box :alcohol, {}, "1", "0" %> <%= f.label :alcohol, "This party may have alcohol present." %></div>
+    <div class="columns small-12 medium-9 medium-offset-3"><%= f.check_box :alcohol, {}, "1", "0" %> <%= f.label :alcohol, "This event may have alcohol present." %></div>
   </div>  
   <div class="row">
     <div class="columns small-12 medium-9 medium-offset-3">
     <p>
-    By clicking "Save Party", you agree to our <%= link_to "Terms", terms_path %>.
+    By clicking "Save Event", you agree to our <%= link_to "Terms", terms_path %>.
     </p>
     </div>
   </div>
   <div class="row">
-  	<div class="columns small-12 medium-9 medium-offset-3"><%= f.submit "Save Party", :class => "button secondary" %></div>
+  	<div class="columns small-12 medium-9 medium-offset-3"><%= f.submit "Save Event", :class => "button secondary" %></div>
   </div>
 <% end %>
