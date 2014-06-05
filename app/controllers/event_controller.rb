@@ -100,7 +100,7 @@ class EventController < ApplicationController
 	end
 
 	def event_twitter_name
-		@event.event_type == "Other" ? "" : " #{@event.event_type}"
+		@event.event_type == "Other" ? "" : " ##{@event.event_type}"
 	end
 
 	def event_counter(is_plural)
@@ -108,24 +108,24 @@ class EventController < ApplicationController
 
 		case @event.event_type
 			when "BBQ"
-				return is_plural ? "parties" : "party"
+				return is_plural ? "#parties" : "#party"
 			when "Potluck"
-				return is_plural ? "parties" : "party"
+				return is_plural ? "#parties" : "#party"
 			when "Catered"
-				return is_plural ? "parties" : "party"
+				return is_plural ? "#parties" : "#party"
 			when "Picnic"
-				return is_plural ? "parties" : "party"
+				return is_plural ? "#parties" : "#party"
 			when "Community"
-				return is_plural ? "events" : "event"
+				return is_plural ? "#events" : "#event"
 			when "Fundraiser"
-				return is_plural ? "events" : "event"
+				return is_plural ? "#events" : "#event"
 			when "Other"
-				return is_plural ? "events" : "event"
+				return is_plural ? "#events" : "#event"
 		end
 	end
 
 	def hash_tag
-		@event.date == "06/21/2014" ? " #NeighbourDayYYC" : ""
+		@event.date == "06/21/2014" ? " #NeighbourDay #YYC" : "#YYC"
 	end
 
 	def has_access
