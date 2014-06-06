@@ -170,11 +170,14 @@
 				dataType: 'script',
 				cache: true,
 				success: function(data, status, xhr) {
+					/*
 					if (navigator.geolocation) {
 					  navigator.geolocation.getCurrentPosition(_gpsHandler, _initMap);
 					} else {
 						_initMap();
 					}
+					*/
+					_initMap();
 				},
 				error: function(data, status, xhr) {
 				}
