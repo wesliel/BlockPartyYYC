@@ -2,7 +2,6 @@
 * For example of the API call, load this URL in browser:
 * http://maps.google.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=false
 */
-
 //= require jquery.anagram-validation.0.2.min
 //= require foundation-datepicker
 
