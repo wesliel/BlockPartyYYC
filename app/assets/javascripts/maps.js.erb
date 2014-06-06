@@ -3,8 +3,6 @@
 * Google maps configuration and maps handler
 *
 */
-//= require markerwithlabel
-//= require markerclusterer
 
 ;var partyPinMaps = partyPinMaps || (function() {
 	var
@@ -194,13 +192,16 @@
 
 	return {
 		init: function() {
-			_initMap();
+			$.getScript('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel_packed.js');
+			$.getScript('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/src/markerclusterer_packed.js', function(){
+				_initMap();
+			});
 		}
 	};
 }());
 
 $(document).ready(function() {
 	if ($('#map').length > 0) {
-		partyPinMaps.init();
+		$.getScript('https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&callback=partyPinMaps.init');
 	}
 });

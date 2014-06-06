@@ -15,7 +15,6 @@
 //= require foundation
 //= require jquery.anagram-trackable.0.1.min
 //= require jquery.sticky
-//= require googlemap
 //= require_tree .
 
 $(function(){
