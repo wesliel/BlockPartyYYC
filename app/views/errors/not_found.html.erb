@@ -1,0 +1,11 @@
+<% title "Uh Oh" %>
+<div class="has-flags"></div>
+<div class="row">
+	<div class="columns small-12">
+		<h1 class="show-for-medium-up"><%= yield(:title) %></h1>
+		<h2>We can't find what you were looking for</h2>
+		<p>
+			Perhaps it has been removed, why not start from <%= link_to "the beginning?", controller: "event", action: "index" %>
+		</p>
+	</div>
+</div>

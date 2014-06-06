@@ -1,0 +1,14 @@
+<% title "Uh Oh" %>
+<div class="has-flags"></div>
+<div class="row">
+	<div class="columns small-12">
+		<h1 class="show-for-medium-up"><%= yield(:title) %></h1>
+		<h2>We are experiencing some issue with your request</h2>
+		<p>
+			It could just be a glitch, please try again in a few minutes.
+		</p>
+		<p>
+			If you're experiencing the same issue, please let us know by emailing <%= link_to "our tech support.", "mailto:support@yycyouthere.com" %>
+		</p>
+	</div>
+</div>

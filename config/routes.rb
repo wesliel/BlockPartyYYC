@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback" => "sessions#create"
   get "/signout" => "sessions#destroy", :as => :signout
 
+  get "/500" => "errors#internal_error"
+  get "/404" => "errors#not_found"
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
