@@ -202,6 +202,10 @@
 
 $(document).ready(function() {
 	if ($('#map').length > 0) {
-		$.getScript('https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&callback=partyPinMaps.init');
+
+	  var script = document.createElement('script');
+	  script.type = 'text/javascript';
+	  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&callback=partyPinMaps.init';
+	  document.body.appendChild(script);
 	}
 });
