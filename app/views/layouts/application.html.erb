@@ -8,6 +8,13 @@
 
     <title><%= content_for?(:title) ? "YYCYouThere - " + yield(:title) : "YYCYouThere" %></title>
 
+    <!-- Facebook sharing tags -->
+    <meta property="og:title" content="YYCYouThere - Promote Your YYC Neighhour Day Block Party"/>
+    <meta property="og:url" content="http://yycyouthere.com"/>
+    <meta property="og:site_name" content="YYCYouThere"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="<%= asset_url("yyc_fb_logo.jpg") %>" />
+
     <%= stylesheet_link_tag    "application" %>
     <%= stylesheet_link_tag    "//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" %>
     <%= javascript_include_tag "vendor/modernizr" %>
