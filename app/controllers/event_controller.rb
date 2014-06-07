@@ -29,20 +29,19 @@ class EventController < ApplicationController
 
 	def create
 		@event = Event.new(event_params)
-
 		if !has_access
+			redirect_to new_event_url, :alert => "You cannot create an event as a different user."
+		else
 			@event.save
 			tweet("Like#{event_twitter_name} #{event_counter(true)}? @#{@event.user.name} is having one. Check it out: http://YYCYouThere.com/event/#{@event.id}#{hash_tag}")
 			redirect_to @event
-		else
-			redirect_to new_event_url, :alert => "Error creating event" + session[:user_id].to_s + ":" + event_params[:user_id]
 		end
 	end
 
 	def edit
 		@event = Event.find(params[:id])
 		if !has_access
-			redirect_to @event, :alert => "You did not submit this event!"
+			redirect_to @event, :alert => "You cannot edit an event you did not submit."
 		end
 	end
 
@@ -50,7 +49,7 @@ class EventController < ApplicationController
 		@event = Event.find(params[:id])
 
 		if !has_access
-			redirect_to @event, :alert => "You did not submit this event"
+			redirect_to @event, :alert => "You cannot edit an event you did not submit."
 		else
 			if @event.update(event_params)
 				tweet("Going to @#{@event.user.name}'s #{event_twitter_name} #{event_counter(false)}? It has been updated. Check it out: http://YYCYouThere.com/event/#{@event.id}#{hash_tag}")
@@ -65,13 +64,13 @@ class EventController < ApplicationController
 		@event = Event.find(params[:id])
 
 		if !has_access
-			redirect_to @event, :alert => "You did not submit this event!"
+			redirect_to @event, :alert => "You cannot delete an event you did not submit."
 		else
 			if @event.update(:deleted => 1)
 				tweet("Going to @#{@event.user.name}'s #{event_twitter_name} #{event_counter(false)}? Looks like it has been cancelled. Find another one at: http://YYCYouThere.com/#{hash_tag}")
-				redirect_to mine_event_index_url, :notice => 'Event deleted'
+				redirect_to mine_event_index_url, :notice => "Event deleted"
 			else
-				redirect_to mine_event_index_url, :alert => 'Error deleting event'
+				redirect_to mine_event_index_url, :alert => "There was an problem deleting your event."
 			end
 		end
 	end
