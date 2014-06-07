@@ -192,9 +192,10 @@
 
 	return {
 		init: function() {
-			$.getScript('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel_packed.js');
-			$.getScript('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/src/markerclusterer_packed.js', function(){
-				_initMap();
+			$.getScript('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel_packed.js', function() {
+				$.getScript('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/src/markerclusterer_packed.js', function(){
+					_initMap();
+				});
 			});
 		}
 	};
