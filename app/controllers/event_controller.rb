@@ -30,7 +30,7 @@ class EventController < ApplicationController
 	def create
 		@event = Event.new(event_params)
 
-		if session[:user_id].to_s == event_params[:user_id].to_s
+		if !has_access
 			@event.save
 			tweet("Like#{event_twitter_name} #{event_counter(true)}? @#{@event.user.name} is having one. Check it out: http://YYCYouThere.com/event/#{@event.id}#{hash_tag}")
 			redirect_to @event
