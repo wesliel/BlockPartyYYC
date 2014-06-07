@@ -27,7 +27,7 @@
 		<strong>Address:</strong> <%= @event.address %>
 		</p>
 		<p>
-		<strong>Date:</strong> <%= @event.date %>
+		<strong>Date:</strong> <%= @event.date %> (<%= day_of_week(@event.date, false) %>)
 		</p>
 		<p>
 		<strong>Start Time:</strong> <%= @event.start_time %>

@@ -1,4 +1,5 @@
 module ViewHelper
+  require "time"
   # Generate title for current page
   def title(page_title)
     content_for :title, page_title.to_s
@@ -39,4 +40,14 @@ module ViewHelper
   def current_year()
     Time.now.strftime("%Y")
   end
+
+  # Return day of week based on "YYYY-MM-DD" format
+  def day_of_week(date, is_short)
+    if is_short
+      return Time.parse(date).strftime("%a")
+    else
+      return Time.parse(date).strftime("%A")
+    end
+  end
+
 end
