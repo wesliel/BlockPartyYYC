@@ -124,7 +124,7 @@ class EventController < ApplicationController
 	end
 
 	def hash_tag
-		(["2014-06-20", "2014-06-21", "2014-06-22"].include? @event.date) == true ? " #NeighbourDay #YYC" : " #YYC"
+		(["2014-06-20", "2014-06-21", "2014-06-22"].include? @event.date) == true ? " #YYCNeighbourDay #YYC" : " #YYC"
 	end
 
 	def has_access
