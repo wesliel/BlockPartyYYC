@@ -35,6 +35,14 @@
 		<p>
 		<strong>End Time:</strong> <%= @event.end_time %>
 		</p>
+		<% if @event.description %>
+			<p>
+			<strong>Details:</strong>
+			</p>
+			<p>
+			<%= sanitize @event.description.gsub!("\n", "<br/>"), tags: %w(table tr td strong b bold p br) %>
+			</p>
+		<% end %>
 		<p class="share">
 		<a href="https://twitter.com/intent/tweet?text=<%= URI.escape("Here's the #{event_counter(false)} hosted by @#{@event.user.name} you can't miss. http://YYCYouThere.com/event/#{@event.id}#{hash_tag}") %>" data-trackable data-event="click" data-category="share" data-label="twitter-event-tweet"><i class="fa fa-twitter-square"></i></a>
 		</p>

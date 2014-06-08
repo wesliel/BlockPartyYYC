@@ -19,7 +19,10 @@
     <div class="columns small-3"><%= f.label :event_type %></div>
     <div class="columns small-9"><%= f.select :event_type, party_type_options, {}, {:required => true, :"data-required-message" => "Please select a event type"} %></div>
   </div>
-
+  <div class="row">
+    <div class="columns small-3"><%= f.label :description, "Details" %></div>
+    <div class="columns small-9"><%= f.text_area :description, :placeholder => "Any other info, this is optional", :rows => "12" %></div>
+  </div>
   <div class="row">
   	<div class="columns small-3"><%= f.label :date %></div>
   	<div class="columns small-9"><%= f.text_field :date, :required => true, :"data-match" => "date", :"data-required-message" => "Please enter event date", :value => @event.date ? @event.date : "2014-06-21", :"data-date-format" => "yyyy-mm-dd" %></div>
