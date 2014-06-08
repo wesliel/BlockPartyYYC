@@ -18,7 +18,8 @@
 		infoWindowObj = null,
 		infoWindowTemplate = $('[data-template="infowindow"]'),
 		infoWindowWidth = '350',
-		markerCluster = null;
+		markerCluster = null,
+		daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 	function _gpsHandler(position) {
 		mapCenter = {'lat': position.coords.latitude, 'lng': position.coords.longitude};
@@ -41,6 +42,7 @@
 					.replace(/\[title\]/g, markerData['title'])
 					.replace(/\[address\]/g, markerData['address'])
 					.replace(/\[date\]/g, markerData['date'])
+					.replace(/\[day\]/g, daysOfWeek[ new Date(Date.parse(markerData['date'])).getDay() ])
 					.replace(/\[community\]/g, markerData['community'])
 					.replace(/\[start_time\]/g, markerData['start_time'])
 					.replace(/\[end_time\]/g, markerData['end_time'])
