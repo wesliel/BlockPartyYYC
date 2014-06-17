@@ -4,8 +4,6 @@ module EventHelper
 	end
 
 	def event_counter(is_plural)
-		return_string = ""
-
 		case @event.event_type
 			when "BBQ"
 				return is_plural ? "#parties" : "#party"

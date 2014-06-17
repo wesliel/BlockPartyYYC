@@ -1,5 +1,5 @@
 /*
-* 
+*
 * Google maps configuration and maps handler
 *
 */
@@ -190,6 +190,13 @@
 		});
 		google.maps.event.addListener(markerCluster, 'mouseover', function (c) {});
 		google.maps.event.addListener(markerCluster, 'mouseout', function (c) {});
+
+		// Fit all markers
+		var latLngBounds = new google.maps.LatLngBounds();
+		for (var i = 0; i < markerList.length; i++) {
+			latLngBounds.extend(markerList[i].getPosition());
+		}
+		mapObj.fitBounds(latLngBounds);
 	}
 
 	return {
