@@ -171,7 +171,7 @@
 		google.maps.event.addListener(markerCluster, 'click', function (cluster) {
 			var
 				clusterMarkers = cluster.getMarkers(),
-				infoWindowWrapper = '<div>';
+				infoWindowWrapper = '<div class="cluster-info">';
 
 			for (var i = 0; i < clusterMarkers.length; i++) {
 				markerId = $(clusterMarkers[i].labelContent).data('id');
