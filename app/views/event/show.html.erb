@@ -43,7 +43,7 @@
 			<strong>Details:</strong>
 			</p>
 			<p>
-			<%= sanitize @event.description.gsub("\n", "<br/>"), tags: %w(table tr td strong b bold p br a) %>
+			<%= sanitize @event.description.gsub("\n", "<br/>"), tags: %w(table tr td strong b bold em i p br a) %>
 			</p>
 		<% end %>
 		<p class="share">
