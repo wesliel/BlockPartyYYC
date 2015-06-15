@@ -32,8 +32,11 @@ class EventController < ApplicationController
 		if !has_access
 			redirect_to new_event_url, :alert => "You cannot create an event as a different user."
 		else
+			if @event.tweet == ""
+				@event.tweet = "Like#{event_twitter_name} #{event_counter(true)}? @#{@event.user.name} is having one!"
+			end
 			@event.save
-			tweet("Like#{event_twitter_name} #{event_counter(true)}? @#{@event.user.name} is having one. Check it out: http://YYCYouThere.com/event/#{@event.id}#{hash_tag}")
+			tweet("#{@event.tweet} YYCYouThere.com/event/#{@event.id}#{hash_tag}")
 			redirect_to @event
 		end
 	end
@@ -51,8 +54,12 @@ class EventController < ApplicationController
 		if !has_access
 			redirect_to @event, :alert => "You cannot edit an event you did not submit."
 		else
+			# Set a default tweet
+			if event_params['tweet'] == ""
+				params.require(:event)['tweet'] = "Going to @#{@event.user.name}'s #{event_twitter_name} #{event_counter(false)}? It has been updated."
+			end
 			if @event.update(event_params)
-				tweet("Going to @#{@event.user.name}'s #{event_twitter_name} #{event_counter(false)}? It has been updated. Check it out: http://YYCYouThere.com/event/#{@event.id}#{hash_tag}")
+				tweet("#{@event.tweet} YYCYouThere.com/event/#{@event.id}#{hash_tag}")
 				redirect_to @event
 			else
 				render 'edit'
@@ -67,7 +74,7 @@ class EventController < ApplicationController
 			redirect_to @event, :alert => "You cannot delete an event you did not submit."
 		else
 			if @event.update(:deleted => 1)
-				tweet("Going to @#{@event.user.name}'s #{event_twitter_name} #{event_counter(false)}? Looks like it has been cancelled. Find another one at: http://YYCYouThere.com/#{hash_tag}")
+				tweet("Going to @#{@event.user.name}'s #{event_twitter_name} #{event_counter(false)}? Looks like it has been cancelled. Find another one at: YYCYouThere.com/#{hash_tag}")
 				redirect_to mine_event_index_url, :notice => "Event deleted"
 			else
 				redirect_to mine_event_index_url, :alert => "There was an problem deleting your event."
@@ -77,7 +84,7 @@ class EventController < ApplicationController
 
 	private
 	def event_params
-		params.require(:event).permit(:id, :title, :community, :address, :user_id, :date, :start_time, :end_time, :lat, :long, :event_type, :all_age, :alcohol, :description)
+		params.require(:event).permit(:id, :title, :community, :address, :user_id, :date, :start_time, :end_time, :lat, :long, :event_type, :all_age, :alcohol, :description, :tweet)
 	end
 
 	def require_login
@@ -94,7 +101,7 @@ class EventController < ApplicationController
 		  config.access_token        = "2495626352-9rSuIrseKlEeFtK4ayFSq2KjT6RUorHmVxWi8If"
 		  config.access_token_secret = "WIvdyxUTU56iKzFDlcZNIMwTmlU19ntGbTXkiIXZaXyr0"
 		end
-		
+
 		client.update(my_tweet)
 	end
 
@@ -122,7 +129,7 @@ class EventController < ApplicationController
 	end
 
 	def hash_tag
-		(["2014-06-20", "2014-06-21", "2014-06-22"].include? @event.date) == true ? " #YYCNeighbourDay #YYC" : " #YYC"
+		(["2015-06-20", "2015-06-21", "2015-06-22"].include? @event.date) == true ? " #YYCNeighbourDay #YYC" : " #YYC"
 	end
 
 	def has_access

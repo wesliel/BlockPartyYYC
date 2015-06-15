@@ -24,6 +24,9 @@
 		<strong>Hosted By:</strong> <%= link_to "@#{@event.user.name}", "https://twitter.com/#{@event.user.name}", target: "_blank" %>
 		</p>
 		<p>
+		<strong>Tweet:</strong> <%= @event.tweet %>
+		</p>
+		<p>
 		<strong>Address:</strong> <%= @event.address %>
 		</p>
 		<p>
@@ -40,7 +43,7 @@
 			<strong>Details:</strong>
 			</p>
 			<p>
-			<%= sanitize @event.description.gsub!("\n", "<br/>"), tags: %w(table tr td strong b bold p br) %>
+			<%= sanitize @event.description.gsub("\n", "<br/>"), tags: %w(table tr td strong b bold p br) %>
 			</p>
 		<% end %>
 		<p class="share">
